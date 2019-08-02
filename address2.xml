@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<command version="3" name="Address2" icon="address2.png" run="python address2.py {Center}">
+	<parameter required="true" type="point">
+		<name>Center</name>
+		<description>From coordinates</description>
+	</parameter>
+</command>
