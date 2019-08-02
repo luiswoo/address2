@@ -39,7 +39,7 @@ class client:
 		if proxy:
 			self.proxy_handler = urllib2.ProxyHandler(proxy)
 			self.opener.add_handler(self.proxy_handler)
-		self.opener.addheaders = [('User-agent', user_agent)]
+		self.opener.addheaders = [('User-agent', user_agent), {'Referer', 'https://pkk5.rosreestr.ru/'}]
 		urllib2.install_opener(self.opener)
 	def request(self, url, params={}, timeout=5):
 		if params:
