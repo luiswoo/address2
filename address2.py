@@ -32,14 +32,14 @@ if sys.version_info[0] < 3:
   sys.setdefaultencoding("utf-8")          # a hack to support UTF-8 
 
 class client:
-	def __init__(self, proxy=None, user_agent='Mozilla/5.0 (X11; U; Linux i686; ru; rv:1.9.2.3) Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3'):
+	def __init__(self, proxy=None):
 		self.redirect_handler = urllib2.HTTPRedirectHandler()
 		self.http_handler	 = urllib2.HTTPHandler()
 		self.opener = urllib2.build_opener(self.http_handler, self.redirect_handler)
 		if proxy:
 			self.proxy_handler = urllib2.ProxyHandler(proxy)
 			self.opener.add_handler(self.proxy_handler)
-		self.opener.addheaders = [('User-agent', user_agent), {'Referer', 'https://pkk5.rosreestr.ru/'}]
+		self.opener.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; ru; rv:1.9.2.3) Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3'),('Referer', 'https://pkk5.rosreestr.ru/'),('upgrade-insecure-requests','1')]
 		urllib2.install_opener(self.opener)
 	def request(self, url, params={}, timeout=5):
 		if params:
