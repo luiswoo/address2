@@ -63,7 +63,7 @@ def main():
 	
 	# text = httpc.request('http://pkk5.rosreestr.ru/arcgis/rest/services/Cadastre/CadastreSelected/MapServer/1/query?text=&geometry='+str(coords_m[0])+','+str(coords_m[1])+'&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&objectIds=&where=&time=&returnCountOnly=false&returnIdsOnly=false&returnGeometry=false&maxAllowableOffset=&outSR=&outFields=*&f=pjson')
 	
-	text = httpc.request('http://pkk5.rosreestr.ru/api/features/1?text='+coords[1]+'%20'+coords[0]+'&tolerance=4&limit=11')
+	text = httpc.request('https://pkk.rosreestr.ru/api/features/1?text='+coords[1]+'%20'+coords[0]+'&tolerance=4&limit=11')
 	
 	data = json.loads(text)
 	if 'features' in data:
@@ -80,7 +80,7 @@ def main():
 			for id in ids:
 				#text = httpc.request('http://maps.rosreestr.ru/arcgis/rest/services/Cadastre/CadastreInfo/MapServer/2/query?f=json&where=PARCELID%20IN%20(%27'+id+'%27)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=FULLADDRESS,CATEGORY,UTIL_BY_DOC');
 				
-				text = httpc.request('http://pkk5.rosreestr.ru/api/features/1/'+id);
+				text = httpc.request('https://pkk.rosreestr.ru/api/features/1/'+id);
 				
 				data = json.loads(text)
 				
