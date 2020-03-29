@@ -39,7 +39,7 @@ class client:
 		if proxy:
 			self.proxy_handler = urllib2.ProxyHandler(proxy)
 			self.opener.add_handler(self.proxy_handler)
-		self.opener.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; ru; rv:1.9.2.3) Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3'),('Referer', 'https://pkk5.rosreestr.ru/'),('upgrade-insecure-requests','1')]
+		self.opener.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; ru; rv:1.9.2.3) Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3'),('Referer', 'https://pkk.rosreestr.ru/'),('upgrade-insecure-requests','1')]
 		urllib2.install_opener(self.opener)
 	def request(self, url, params={}, timeout=5):
 		if params:
