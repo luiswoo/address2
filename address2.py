@@ -23,7 +23,7 @@
 import sys
 import math
 import projections
-import urllib, urllib2, cookielib, Cookie
+import urllib, urllib.request as urllib2, http.cookiejar as cookielib, http.cookies as Cookie
 import json
 from OsmData import OsmData, LON, LAT, TAG
 
@@ -32,14 +32,14 @@ if sys.version_info[0] < 3:
   sys.setdefaultencoding("utf-8")          # a hack to support UTF-8 
 
 class client:
-	def __init__(self, proxy=None):
+	def __init__(self, proxy=None, user_agent='Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0'):
 		self.redirect_handler = urllib2.HTTPRedirectHandler()
 		self.http_handler	 = urllib2.HTTPHandler()
 		self.opener = urllib2.build_opener(self.http_handler, self.redirect_handler)
 		if proxy:
 			self.proxy_handler = urllib2.ProxyHandler(proxy)
 			self.opener.add_handler(self.proxy_handler)
-		self.opener.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; ru; rv:1.9.2.3) Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3'),('Referer', 'https://pkk.rosreestr.ru/'),('upgrade-insecure-requests','1')]
+		self.opener.addheaders = [('User-agent', user_agent), ('Referer', 'https://pkk.rosreestr.ru/')]
 		urllib2.install_opener(self.opener)
 	def request(self, url, params={}, timeout=5):
 		if params:
@@ -50,6 +50,7 @@ class client:
 		return html.read()
 
 def main():
+	
 	if len(sys.argv) != 2:
 		return 0
 	
@@ -110,7 +111,7 @@ def main():
 				tData.nodes[nodeid][LAT] = coords[1]
 				tData.nodes[nodeid][TAG] = addresses[0]
 				comment = addresses[0]['addr:street'] + ', ' + addresses[0]['addr:housenumber']
-				if addresses[0]['utilization'] <> None:
+				if addresses[0]['utilization'] is None:
 					comment += ' - ' + addresses[0]['utilization']
 				tData.addcomment(comment)
 			else:
@@ -124,7 +125,7 @@ def main():
 					tData.nodes[nodeid][LAT] = y
 					tData.nodes[nodeid][TAG] = addresses[i]
 					comment = addresses[i]['addr:street'] + ', ' + addresses[i]['addr:housenumber']
-					if addresses[i]['utilization'] <> None:
+					if addresses[i]['utilization'] is None:
 						comment += ' - ' + addresses[i]['utilization']
 					tData.addcomment(comment)
 		else:
